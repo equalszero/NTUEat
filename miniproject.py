@@ -1,3 +1,5 @@
+### below is the full project, where the functions and data are all in one place
+
 import pygame
 pygame.init()
 import time
