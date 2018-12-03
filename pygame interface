@@ -1,3 +1,5 @@
+### pygame needed
+
 import pygame
 pygame.init()
 import time
