@@ -1,495 +1,6 @@
-def mouseclick():
-    finish = False
-    while finish == False:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                finish = True
-            else:
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    (mouseX, mouseY) = pygame.mouse.get_pos()
-                    print(mouseX,mouseY)
-                    finish = True
-    return (mouseX,mouseY)
-
-def text_objects(text,color,size):
-    if size == 'small':
-        textsurface = smallfont.render(text,True,color)
-    elif size == 'medium':
-        textsurface = mediumfont.render(text,True,color)
-    elif size == 'large':
-        textsurface = largefont.render(text,True,color)
-    return textsurface, textsurface.get_rect()
-
-def text_to_button(msg,color,buttonx,buttony,buttonwidth,buttonheight,size):
-    textsurf, textrect = text_objects(msg,color,size)
-    textrect.center = ((buttonx +(buttonwidth/2)), buttony+(buttonheight/2))
-    appDisplay.blit(textsurf,textrect)
-    
-
-def message_to_screen(msg,color,y_displace,size):
-    textsurf, textrect = text_objects(msg,color,size)
-    textrect.center = (display_width/2),(display_height/2)+ y_displace
-    appDisplay.blit(textsurf,textrect)
-
-def button(text,x,y,width,height,inactive_color,active_color):
-    a = 0
-    cur = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if x+width > cur[0] > x and y+height > cur[1] > y:
-        pygame.draw.rect(appDisplay,active_color,(x,y,width,height))
-        if click[0] == 1:
-            a= 1
-            
-    else:
-        pygame.draw.rect(appDisplay,inactive_color,(x,y,width,height))
-    text_to_button(text,black,x,y,width,height,'small')
-    return a
-
-def trans_button(text,x,y,width,height,inactive_color,active_color):
-    a = 0
-    cur = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if x+width > cur[0] > x and y+height > cur[1] > y:
-        s = pygame.Surface((width,height))  # the size of your rect
-        s.set_alpha(128)                # alpha level
-        s.fill(active_color)           # this fills the entire surface
-        appDisplay.blit(s, (x,y))    # (0,0) are the top-left coordinates
-        
-        if click[0] == 1:
-            a= 1
-            
-    else:
-        s = pygame.Surface((width,height))  # the size of your rect
-        s.set_alpha(128)                # alpha level
-        s.fill(inactive_color)           # this fills the entire surface
-        appDisplay.blit(s, (x,y))    # (0,0) are the top-left coordinates
-    text_to_button(text,black,x,y,width,height,'small')
-    return a
-
-def trans_button_special(color,text,x,y,width,height,inactive_color,active_color): #for opening time
-    a = 0
-    cur = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if x+width > cur[0] > x and y+height > cur[1] > y:
-        s = pygame.Surface((width,height))  # the size of your rect
-        s.set_alpha(128)                # alpha level
-        s.fill(active_color)           # this fills the entire surface
-        appDisplay.blit(s, (x,y))    # (0,0) are the top-left coordinates
-        
-        if click[0] == 1:
-            a= 1
-            
-    else:
-        s = pygame.Surface((width,height))  # the size of your rect
-        s.set_alpha(128)                # alpha level
-        s.fill(inactive_color)           # this fills the entire surface
-        appDisplay.blit(s, (x,y))    # (0,0) are the top-left coordinates
-    text_to_button(text,color,x,y,width,height,'small')
-    return a
-
-def app_intro():
-    intro = True
-    while intro:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        
-        appDisplay.fill(white)
-        message_to_screen('Welcome to NTUeat',blue,0,'large')
-        pygame.display.update()
-        intro = False
-        
-
-
-
-def choosehalal(): #choose if halal
-    keeploop = True
-    halal = False
-    while keeploop:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        
-        appDisplay.fill(white)
-        message_to_screen('Choose halal preference?',darkgray,-200,'medium')
-
-
-        a = button('Halal',250,300,200,100,green,lightgreen)
-        b = button('Non-halal',550,300,200,100,blue,lightblue)
-        
-        pygame.display.update()
-        clock.tick(15)
-        if a == 1 or b == 1:
-            if a == 1:
-                halal = True            
-            keeploop = False
-    return halal
-
-def check_halal(foodlist_canteens):   #change foodlist canteen to all halal
-    halal_foodlist_canteens = {}
-    for i in foodlist_canteens.keys():
-        halal_foodlist_canteens[i] = [{}, foodlist_canteens[i][1],foodlist_canteens[i][2]]
-        for y,z in foodlist_canteens[i][0].items():
-            if z[0] == 1:
-                halal_foodlist_canteens[i][0][y] = z
-    
-    return halal_foodlist_canteens
-
-def nothalalbuttons(): #food menu for non halal
-    a = None
-    korean = trans_button('',0,0,198,140,white,lightgreen)
-    drinks = trans_button('',200,0,198,140,white,lightgreen)
-    thai = trans_button('',400,0,198,140,white,lightgreen)
-    japanese = trans_button('',600,0,198,140,white,lightgreen)
-    indian = trans_button('',800,0,198,140,white,lightgreen)
-    chinese = trans_button('',0,143,198,140,white,lightgreen)
-    pasta = trans_button('',200,143,198,140,white,lightgreen)
-    mixedrice = trans_button('',400,143,198,140,white,lightgreen)
-    burger = trans_button('',600,143,198,140,white,lightgreen)
-    chickenrice = trans_button('',800,143,198,140,white,lightgreen)
-    western = trans_button('',0,283,198,140,white,lightgreen)
-    pizza = trans_button('',200,283,198,140,white,lightgreen)
-    muslim = trans_button('',400,283,198,140,white,lightgreen)
-    indonesian = trans_button('',600,283,198,140,white,lightgreen)
-    sandwiches = trans_button('',800,283,198,140,white,lightgreen)
-    yongtaufoo = trans_button('',0,426,198,140,white,lightgreen)
-    vietnamese = trans_button('',200,426,198,140,white,lightgreen)
-    mala = trans_button('',400,426,198,140,white,lightgreen)
-    bakery = trans_button('',600,426,198,140,white,lightgreen)
-    nil = button('nil',800,426,198,140,white,lightgreen)
-    pygame.display.update()
-    clock.tick(15)
-    if nil == 1 or korean == 1 or drinks == 1 or thai == 1 or japanese == 1 or indian == 1 or chinese == 1 or pasta == 1 or mixedrice == 1 or burger == 1 or chickenrice == 1 or western == 1 or pizza == 1 or muslim == 1 or indonesian == 1 or sandwiches == 1 or yongtaufoo == 1 or vietnamese == 1 or mala == 1 or bakery == 1:
-        if korean == 1:
-            a = 'korean'
-        elif drinks == 1:
-            a = 'drinks'
-        elif thai == 1:
-            a = 'thai'
-        elif japanese == 1:
-            a = 'japanese'
-        elif indian == 1:
-            a = 'indian'
-        elif chinese == 1:
-            a = 'chinese'
-        elif pasta == 1:
-            a = 'pasta'
-        elif mixedrice == 1:
-            a = 'mixed rice'
-        elif burger == 1:
-            a = 'burgers'
-        elif chickenrice == 1:
-            a = 'chicken rice'
-        elif western == 1:
-            a = 'western'
-        elif pizza == 1:
-            a = 'pizza'
-        elif muslim == 1:
-            a = 'muslim'
-        elif indonesian == 1:
-            a = 'indonesian'
-        elif sandwiches == 1:
-            a = 'sandwich'
-        elif yongtaufoo == 1:
-            a = 'yong tau foo'
-        elif vietnamese == 1:
-            a = 'vietnamese'
-        elif mala == 1:
-            a = 'mala'
-        elif bakery == 1:
-            a = 'bakery'
-        elif nil == 1:
-            a = 'nil'
-    return a
-
-def halalbuttons(): #food menu for halal
-    a = None
-    drinks = trans_button('',200,0,198,140,white,lightgreen)
-    japanese = trans_button('',600,0,198,140,white,lightgreen)
-    indian = trans_button('',800,0,198,140,white,lightgreen)
-    mixedrice = trans_button('',400,143,198,140,white,lightgreen)
-    burger = trans_button('',600,143,198,140,white,lightgreen)
-    chickenrice = trans_button('',800,143,198,140,white,lightgreen)
-    western = trans_button('',0,283,198,140,white,lightgreen)
-    pizza = trans_button('',200,283,198,140,white,lightgreen)
-    muslim = trans_button('',400,283,198,140,white,lightgreen)
-    indonesian = trans_button('',600,283,198,140,white,lightgreen)
-    sandwiches = trans_button('',800,283,198,140,white,lightgreen)
-    yongtaufoo = trans_button('',0,426,198,140,white,lightgreen)
-    bakery = trans_button('',600,426,198,140,white,lightgreen)
-    nil = button('nil',800,426,198,140,white,lightgreen)
-    pygame.display.update()
-    clock.tick(15)
-    if nil == 1 or drinks == 1 or japanese == 1 or indian == 1 or mixedrice == 1 or burger == 1 or chickenrice == 1 or western == 1 or pizza == 1 or muslim == 1 or indonesian == 1 or sandwiches == 1 or yongtaufoo == 1 or bakery == 1:
-        if drinks == 1:
-            a = 'drinks'
-        elif japanese == 1:
-            a = 'japanese'
-        elif indian == 1:
-            a = 'indian'
-        elif mixedrice == 1:
-            a = 'mixed rice'
-        elif burger == 1:
-            a = 'burgers'
-        elif chickenrice == 1:
-            a = 'chicken rice'
-        elif western == 1:
-            a = 'western'
-        elif pizza == 1:
-            a = 'pizza'
-        elif muslim == 1:
-            a = 'muslim'
-        elif indonesian == 1:
-            a = 'indonesian'
-        elif sandwiches == 1:
-            a = 'sandwich'
-        elif yongtaufoo == 1:
-            a = 'yong tau foo'
-        elif bakery == 1:
-            a = 'bakery'
-        elif nil == 1:
-            a = 'nil'
-    return a
-
-
-def chooseprice(): #choose the price of the food
-    keeploop = True
-    price = 0
-    while keeploop:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        
-        appDisplay.fill(white)
-        message_to_screen('Choose the price range of the food',darkgray,-200,'medium')
-        message_to_screen('$ is $0 to $5',darkgray,-150,'small')
-        message_to_screen('$$ is $5 to $10',darkgray,-120,'small')
-        message_to_screen('$$$ is $10 to $20',darkgray,-90,'small')
-        message_to_screen('$$$$ is $20 to $30',darkgray,-60,'small')
-
-
-        one = button('$',75,350,120,100,green,lightgreen)
-        two = button('$$',325,350,120,100,green,lightgreen)
-        three = button('$$$',575,350,120,100,green,lightgreen)
-        four = button('$$$$',825,350,120,100,green,lightgreen)
-
-        
-        pygame.display.update()
-        clock.tick(15)
-        if one == 1 or two == 1 or three == 1 or four == 1:
-            if one == 1:
-                price = 1
-            elif two == 1:
-                price = 2
-            elif three == 1:
-                price = 3
-            elif four == 1:
-                price = 4
-            keeploop = False
-    return price
-
-def search_by_food(foodname,foodlist_canteens):
-    correct_canteens_food = []
-    for x in foodlist_canteens.keys():
-        if foodname in foodlist_canteens[x][0].keys():
-            correct_canteens_food.append(x)
-    return correct_canteens_food
-
-
-def search_food_and_price(foodname,price,foodlist_canteens):
-    correct_canteens_food = search_by_food(foodname,foodlist_canteens)
-    temp_dict = {}
-    for i in correct_canteens_food:
-        temp_dict[i]= foodlist_canteens[i] #dictionaries of canteens with the input foodtype
-    correct_canteens_food_and_price = []
-    for x in temp_dict.keys():
-        for y,z in temp_dict[x][0].items():
-            if y == foodname:
-                if price == z[1]:
-                    correct_canteens_food_and_price.append(x)
-    if len(correct_canteens_food_and_price) == 0: #if no price that matches foodtype, return all the canteens with the food type
-        for x in temp_dict.keys():
-            for y,z in temp_dict[x][0].items():
-                if y == foodname:
-                    correct_canteens_food_and_price.append(x)
-    return correct_canteens_food_and_price
-
-def choosefood(if_halal): #choose the menu of the food
-    keeploop = True
-    foodname = None
-    while keeploop:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        appDisplay.blit(foodtype,(0,0))
-        pygame.display.update()
-        clock.tick(60)
-        if if_halal == True:
-            foodname = halalbuttons()
-        else:
-            foodname = nothalalbuttons()
-        if foodname != 0 and foodname != None:
-            keeploop = False
-
-    return foodname
-
-    
-
-def search_by_price(price,foodlist_canteens):
-    correct_canteens_price = []
-    for x in foodlist_canteens.keys():
-        for y,z in foodlist_canteens[x][0].items():
-            if price == z[1]:
-                if x not in correct_canteens_price:
-                    correct_canteens_price.append(x)
-    return correct_canteens_price
-
-def foodpriceselect(foodlist_canteens): #choosing  from halal until price
-    keeploop = True
-    while keeploop:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        if_halal = choosehalal()
-        if if_halal == True:
-            foodlist_canteens = check_halal(foodlist_canteens)
-
-        time.sleep(1)
-        foodname = choosefood(if_halal) #choose the foodtype
-        time.sleep(1)
-                
-        price = chooseprice() #choose the price
-
-        if foodname != 'nil':
-            canteen_list = search_food_and_price(foodname,price,foodlist_canteens) #filter the canteens
-        else:
-            canteen_list = search_by_price(price,foodlist_canteens)
-        keeploop = False
-    return canteen_list,foodname
-
-
-def choosesatisfaction(): #if the food is good or not
-    keeploop = True
-    satisfaction = 0
-    while keeploop:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        
-        appDisplay.fill(white)
-        message_to_screen('Is the food awesome?',green,-200,'medium')
-        awesome = button(':)',230,350,120,100,green,lightblue)
-        notawesome = button(':(',650,350,120,100,green,lightblue)
-        
-        pygame.display.update()
-        clock.tick(15)
-        if awesome == 1 or notawesome == 1:
-            if awesome == 1:
-                satisfaction = 1
-            keeploop = False
-    return satisfaction
-        
-def update_information(database,canteen,food,halal,price,satisfaction): #update foodlist canteens
-    value = []
-    value.append(halal)
-    value.append(price)
-    if satisfaction == 1:
-        value.append(':)')
-    database[canteen][0][food] = value
-    return database
-    
-def inputcanteen(): #enter name of canteen
-    font = pygame.font.Font(None, 43)
-    input_box = pygame.Rect(300,300, 400, 50)
-    color_inactive = pygame.Color('lightskyblue3')
-    color_active = pygame.Color('dodgerblue2')
-    color = color_inactive
-    active = False
-    text = ''
-    done = False
-
-    while not done:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # If the user clicked on the input_box rect.
-                if input_box.collidepoint(event.pos):
-                    # Toggle the active variable.
-                    active = not active
-                else:
-                    active = False
-                # Change the current color of the input box.
-                color = color_active if active else color_inactive
-            if event.type == pygame.KEYDOWN:
-                if active:
-                    if event.key == pygame.K_RETURN:
-
-                        done = True
-                    elif event.key == pygame.K_BACKSPACE:
-                        text = text[:-1]
-                    else:
-                        text += event.unicode
-
-        appDisplay.fill(white)
-        appDisplay.blit(canteenlist,(0,0))
-        message_to_screen('enter the name of the canteen',blue,-200,'medium')
-        # Render the current text.
-        txt_surface = font.render(text, True, color)
-        # Resize the box if the text is too long.
-        width = max(400, txt_surface.get_width()+10)
-        input_box.w = width
-        # Blit the text.
-        appDisplay.blit(txt_surface, (input_box.x+5, input_box.y+5))
-        # Blit the input_box rect.
-        pygame.draw.rect(appDisplay, color, input_box, 2)
-
-        pygame.display.update()
-        clock.tick(30)
-    return text
-
-def enterinfo(foodlist_canteens): #update info only
-    canteen = inputcanteen()
-    print(canteen)
-    time.sleep(1)
-    if_halal = choosehalal()
-    if if_halal == True:
-        foodlist_canteens = check_halal(foodlist_canteens)
-        halal = 1
-    elif if_halal == False:
-        halal = 0
-    time.sleep(1)
-    food = choosefood(if_halal)
-    time.sleep(1)
-    price = chooseprice()
-    time.sleep(1)
-    satisfaction = choosesatisfaction()
-    time.sleep(1)
-    return update_information(foodlist_canteens,canteen,food,halal,price,satisfaction)
-
-def full_enterinfo(foodlist_canteens): #to update info, taking into consideration of invalid input
-    try:
-        foodlist_canteens = enterinfo(foodlist_canteens)     
-        appDisplay.fill(white)
-        message_to_screen('Information updated!',lightgray,-200,'large')
-        pygame.display.update()
-        
-
-    except :
-        appDisplay.fill(white)
-        message_to_screen('Please enter a valid canteen',lightgray,-200,'large')
-        message_to_screen('take note of the case of text',lightgray,0,'medium')
-        pygame.display.update()
-    
-    return foodlist_canteens
-############################################################################
-
+                       ### below are the functions used to process user input data, do calculations etc ###
+                       
+                       
 from math import sqrt
         
 def distance_ab(user_location, dest_location):
@@ -552,9 +63,115 @@ def transport(user_location, dest_location,foodlist_canteens):
     return a
     
     
-    ### insert the data for bus loops here
-    
-    def sort_distance(userlocation,foodlist_canteens):
+
+#red bus stops and list
+red_loop = {
+"Lee Wee Nam Library": (629,377),
+"School of Biological Sciences": (336,486),
+"WKW School of Communications": (214,636),
+"Hall 7":(244,870),
+"Innovation Centre": (490,860),
+"Hall 4": (718,904),
+"Hall 1": (924,916),
+"Canteen 2": (973,619),
+"Hall 8 and 9": (1136,485),
+"Hall 11": (1388,391),
+"Graduate Hall 1 and Hall 11": (1437,276),
+"Hall 23": (1281,227),
+"Hall 12 and 13": (865,183)
+}
+
+#lists of red and blue 
+red_list = [
+  "Lee Wee Nam Library",
+  "School of Biological Sciences",
+  "WKW School of Communications",
+  "Hall 7",
+  "Innovation Centre",
+  "Hall 4",
+  "Hall 1",
+  "Canteen 2",
+  "Hall 8 and 9",
+  "Hall 11",
+  "Graduate Hall 1 and Hall 11",
+  "Hall 23",
+  "Hall 12 and 13"]
+
+#blue bus stop and list
+blue_loop = {
+  "NIE": (629,378),
+  "Opp Hall 3 and 16": (779,250),
+  "Opp Hall 14 and 15": (1029,172),
+  "Opp Hall 23": (1281,213),
+  "Opp Hall 10 and 11": (1396,402),
+  "Opp Hall 8 and 9": (1160,478),
+  "Hall 6": (994,720),
+  "Opp Hall 4 and 5": (752,956),
+  "Opp Innovation Centre": (496,864),
+  "SPMS": (316,738),
+  "Opp WKW School of Communications": (203,630),
+  "Opp CEE": (410,365)
+  }
+
+blue_list = [
+  "NIE",
+  "Opp Hall 3 and 16",
+  "Opp Hall 14 and 15",
+  "Opp Hall 23",
+  "Opp Hall 10 and 11",
+  "Opp Hall 8 and 9",
+  "Hall 6",
+  "Opp Hall 4 and 5",
+  "Opp Innovation Centre",
+  "SPMS",
+  "Opp WKW School of Communications",
+  "Opp CEE"
+  ]
+
+canteen_bus_stops = {
+  "Ananda Kitchen": ["Hall 11","Opp Hall 10 and 11"],
+  "Bakery Cuisine": ["Lee Wee Nam Library","NIE"],
+  "Each-A-Cup": ["Lee Wee Nam Library","NIE"],
+  "Food Court 1": ["Hall 1", "Hall 6"],
+  "Food Court 2": ["Canteen 2", "Hall 6" ],
+  "Food Court 9": ["Hall 8 and 9", "Opp Hall 8 and 9"],
+  "Food Court 11": ["Hall 11", "Opp Hall 10 and 11"],
+  "Food Court 13": ["Hall 1", "Opp Hall 3 and 16"],
+  "Food Court 14": ["Hall 12 and 13","Opp Hall 14 and 15"],
+  "Food Court 16": ["Hall 12 and 13","Opp Hall 3 and 16"],
+  "Foodgle Food Court": ["Nanyang Crescent Hall","NIE"],
+  "KFC": ["Lee Wee Nam Library","NIE"],
+  "Koufu": ["Innovation Centre","Opp Innovation Centre"],
+  "Long John Silver's": ["Lee Wee Nam Library","NIE"],
+  "McDonald's": ["Lee Wee Nam Library","NIE"],
+  "Mr Bean": ["Lee Wee Nam Library","NIE"],
+  "North Hill Food Court": ["Hall 11","Opp Hall 10 and 11"],
+  "North Spine Food Court": ["Lee Wee Nam Library","NIE"],
+  "Paik's Bibim": ["Lee Wee Nam Library","NIE"],
+  "Peach Garden Chinese Restaurant": ["Lee Wee Nam Library","NIE"],
+  "Pizza Hut Express": ["Lee Wee Nam Library","NIE"],
+  "Pioneer Food Court": ["Hall 1","Opp Hall 4 and 5"],
+  "Subway": ["Lee Wee Nam Library","NIE"],
+  "Starbucks Coffee": ["Lee Wee Nam Library","NIE"],
+  "The Sandwich Guys": ["Lee Wee Nam Library","NIE"],
+  "The Soup Spoon Union": ["Lee Wee Nam Library","NIE"]
+  }
+list_of_canteens =[ keys for keys in canteen_bus_stops.keys()]
+list_of_canteens = ['Ananda Kitchen', 'Bakery Cuisine', 'Each-A-Cup',
+                    'Food Court 1', 'Food Court 2', 'Food Court 9',
+                    'Food Court 11', 'Food Court 13', 'Food Court 14',
+                    'Food Court 16', 'Foodgle Food oCurt', 'KFC', 'Koufu',
+                    "Long John Silver's", "McDonald's", 'Mr Bean',
+                    'North Hill Food Court', 'North Spine Food Court',
+                    "Paik's Bibim", 'Peach Garden Cuisine',
+                    'Pizza Hut Express', 'Pioneer Food Court',
+                    'Subway', 'Starbucks Coffee', 'The Sandwich Guys',
+                    'The Soup Spoon Union']
+
+
+#functions
+
+def sort_distance(userlocation,foodlist_canteens):
     dist_dict= {}
     for key, value in foodlist_canteens.items():
         canteen = key
@@ -931,13 +548,8 @@ def check_len(canteen,foodname,foodlist_canteens):
 
 
 
-
-
 home()
 
 pygame.display.update()
 pygame.quit()
 quit()
-    
-    
-    
