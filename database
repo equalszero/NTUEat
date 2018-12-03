@@ -1,0 +1,134 @@
+foodlist_canteens = {'Food Court 1':[{'chinese':[0,2],'mala':[0,2],'japanese':[0,1],'mixed rice':[0,1,':)']},['07:00AM','09:00PM'],[878, 751]],
+                        'Food Court 2':[{'chinese':[0,2,':)'],'korean':[0,2],'indonesian':[1,1,':)'],'western':[0,2], 'mixed rice':[0,1], 'bakery':[0,1,':)']},['07:00AM','09:00PM'],[952, 625]],
+                        'Food Court 9':[{'mala':[0,2],'chinese':[0,2],'chicken rice':[0,1,':)'],'pasta':[0,2], 'mixed rice':[1,1]},['07:00AM','09:00PM'],[1184, 409]],
+                        'Food Court 11':[{'chicken rice':[1,1,':)'],'mixed rice':[0,1], 'vietnamese':[0,2],'japanese':[1,2,':)']},['07:00AM','09:00PM'],[1384, 329]],
+                        'Food Court 13':[{'western':[1,2,':)'],'chinese':[0,2],'mixed rice':[0,1],'japanese':[0,2,':)']},['07:00AM','09:00pm'],[883, 208]],
+                        'Food Court 14':[{'muslim':[1,1],'indian':[1,1,':)'],'bakery':[0,1],'korean':[0,2]},['07:00AM','09:00PM'],[1022, 217]],
+                        'Food Court 16':[{'mala':[0,2],'japanese':[0,2],'indian':[1,1],'mixed rice':[0,1], 'chinese':[0,1]},['07:00AM','09:00PM'],[805, 290]],
+                        'Ananda Kitchen':[{'indian':[1,1], 'muslim':[1,1]},['12:00PM','10:30PM'],[1419, 461]], 
+                        'Foodgle Food Court':[{'mala':[0,2,':)'],'korean':[0,2,':)'],'western':[0,2],'mixed rice':[0,1],'chinese':[0,1]},['07:00AM','09:00PM'],[1282, 245]],
+                        'North Hill Food Court':[{'western':[1,2],'mixed rice':[0,1],'chinese':[0,2],'mala':[0,2]},['07:00AM','09:00PM'],[1437, 445]],
+                        'Pioneer Food Court':[{'japanese':[0,1],'yong tau foo':[0,1,':)'], 'thai':[0,2,':)'], 'mixed rice':[0,1]},['07:00AM','09:00PM'],[995, 903]],
+                        'Bakery Cuisine':[{'bakery':[0,1]},['07:00AM','09:00PM'],[605, 455]],
+                        'Each-A-Cup':[{'drinks':[1,1,':)']},['09:00AM','09:00PM'],[605, 455]],
+                        'KFC':[{'western':[1,2,':)']},['07:30AM','10:00PM'],[605, 455]],
+                        "Long John Silver's":[{'western':[0,2],'burgers':[0,2]},['07:30AM','10:00PM'],[605, 455]],
+                        "McDonald's":[{'western':[1,2],'burgers':[1,2,':)']},['07:00AM','12:00AM'],[605, 455]],
+                        'Mr Bean':[{'bakery':[0,1],'drinks':[0,1]},['07:30AM','08:30PM'],[605, 455]],
+                        'North Spine Food Court':[{'western':[1,2],'mala':[0,2],'chicken rice':[0,1], 'mixed rice':[0,1], 'japanese':[0,2],'chinese':[0,1],'vietnamese':[0,1,':)']},['07:00AM','09:00PM'],[605, 455]],
+                        "Paik's Bibim":[{'korean':[0,3,':)']},['10:00AM','09:00PM'],[605, 455]],
+                        'Peach Garden Chinese Restaurant':[{'chinese':[0,4,':)']},['11:00AM','10:00PM'],[605, 455]],
+                        'The Soup Spoon Union':[{'western':[0,2,':)']},['11:00AM','09:00PM'],[605, 455]],
+                        'Koufu':[{'pasta':[0,2,':)'],'mixed rice':[0,1],'yong tau foo':[1,1],'drinks':[1,1],'japanese':[0,1],'indian':[1,1]},['07:00AM','01:00PM'],[446, 745]],
+                        'The Sandwich Guys':[{'sandwich':[0,2,':)']},['10:00AM','07:00PM'],[605, 455]],
+                        'Subway':[{'sandwich':[1,2]},['08:00AM','10:00PM'],[605, 455]],
+                        'Pizza Hut Express':[{'pizza':[1,2,':)']},['11:00AM','10:00PM'],[605, 455]],
+                        'Starbucks Coffee':[{'bakery':[1,2,':)'],'drinks':[1,2,':)']},['07:00AM','10:00PM'],[605, 455]]}
+
+#red bus stops and list
+
+red_loop = {
+"Lee Wee Nam Library": (629,377),
+"School of Biological Sciences": (336,486),
+"WKW School of Communications": (214,636),
+"Hall 7":(244,870),
+"Innovation Centre": (490,860),
+"Hall 4": (718,904),
+"Hall 1": (924,916),
+"Canteen 2": (973,619),
+"Hall 8 and 9": (1136,485),
+"Hall 11": (1388,391),
+"Graduate Hall 1 and Hall 11": (1437,276),
+"Hall 23": (1281,227),
+"Hall 12 and 13": (865,183)
+}
+
+#lists of red and blue 
+
+red_list = [
+  "Lee Wee Nam Library",
+  "School of Biological Sciences",
+  "WKW School of Communications",
+  "Hall 7",
+  "Innovation Centre",
+  "Hall 4",
+  "Hall 1",
+  "Canteen 2",
+  "Hall 8 and 9",
+  "Hall 11",
+  "Graduate Hall 1 and Hall 11",
+  "Hall 23",
+  "Hall 12 and 13"]
+
+#blue bus stop and list
+
+blue_loop = {
+  "NIE": (629,378),
+  "Opp Hall 3 and 16": (779,250),
+  "Opp Hall 14 and 15": (1029,172),
+  "Opp Hall 23": (1281,213),
+  "Opp Hall 10 and 11": (1396,402),
+  "Opp Hall 8 and 9": (1160,478),
+  "Hall 6": (994,720),
+  "Opp Hall 4 and 5": (752,956),
+  "Opp Innovation Centre": (496,864),
+  "SPMS": (316,738),
+  "Opp WKW School of Communications": (203,630),
+  "Opp CEE": (410,365)
+  }
+
+blue_list = [
+  "NIE",
+  "Opp Hall 3 and 16",
+  "Opp Hall 14 and 15",
+  "Opp Hall 23",
+  "Opp Hall 10 and 11",
+  "Opp Hall 8 and 9",
+  "Hall 6",
+  "Opp Hall 4 and 5",
+  "Opp Innovation Centre",
+  "SPMS",
+  "Opp WKW School of Communications",
+  "Opp CEE"
+  ]
+
+canteen_bus_stops = {
+  "Ananda Kitchen": ["Hall 11","Opp Hall 10 and 11"],
+  "Bakery Cuisine": ["Lee Wee Nam Library","NIE"],
+  "Each-A-Cup": ["Lee Wee Nam Library","NIE"],
+  "Food Court 1": ["Hall 1", "Hall 6"],
+  "Food Court 2": ["Canteen 2", "Hall 6" ],
+  "Food Court 9": ["Hall 8 and 9", "Opp Hall 8 and 9"],
+  "Food Court 11": ["Hall 11", "Opp Hall 10 and 11"],
+  "Food Court 13": ["Hall 1", "Opp Hall 3 and 16"],
+  "Food Court 14": ["Hall 12 and 13","Opp Hall 14 and 15"],
+  "Food Court 16": ["Hall 12 and 13","Opp Hall 3 and 16"],
+  "Foodgle Food Court": ["Nanyang Crescent Hall","NIE"],
+  "KFC": ["Lee Wee Nam Library","NIE"],
+  "Koufu": ["Innovation Centre","Opp Innovation Centre"],
+  "Long John Silver's": ["Lee Wee Nam Library","NIE"],
+  "McDonald's": ["Lee Wee Nam Library","NIE"],
+  "Mr Bean": ["Lee Wee Nam Library","NIE"],
+  "North Hill Food Court": ["Hall 11","Opp Hall 10 and 11"],
+  "North Spine Food Court": ["Lee Wee Nam Library","NIE"],
+  "Paik's Bibim": ["Lee Wee Nam Library","NIE"],
+  "Peach Garden Chinese Restaurant": ["Lee Wee Nam Library","NIE"],
+  "Pizza Hut Express": ["Lee Wee Nam Library","NIE"],
+  "Pioneer Food Court": ["Hall 1","Opp Hall 4 and 5"],
+  "Subway": ["Lee Wee Nam Library","NIE"],
+  "Starbucks Coffee": ["Lee Wee Nam Library","NIE"],
+  "The Sandwich Guys": ["Lee Wee Nam Library","NIE"],
+  "The Soup Spoon Union": ["Lee Wee Nam Library","NIE"]
+  }
+  
+list_of_canteens =[ keys for keys in canteen_bus_stops.keys()]
+list_of_canteens = ['Ananda Kitchen', 'Bakery Cuisine', 'Each-A-Cup',
+                    'Food Court 1', 'Food Court 2', 'Food Court 9',
+                    'Food Court 11', 'Food Court 13', 'Food Court 14',
+                    'Food Court 16', 'Foodgle Food oCurt', 'KFC', 'Koufu',
+                    "Long John Silver's", "McDonald's", 'Mr Bean',
+                    'North Hill Food Court', 'North Spine Food Court',
+                    "Paik's Bibim", 'Peach Garden Cuisine',
+                    'Pizza Hut Express', 'Pioneer Food Court',
+                    'Subway', 'Starbucks Coffee', 'The Sandwich Guys',
+                    'The Soup Spoon Union']
